@@ -11,11 +11,13 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderExpenses(expensesToRender) {
         expenseList.innerHTML = '';
         let total = 0;
-        expensesToRender.forEach(expense => {
+        expensesToRender.forEach((expense, index) => {
             const expenseItem = document.createElement('div');
             expenseItem.className = 'expense-item';
             expenseItem.innerHTML = `
                 <strong>${expense.description}</strong> - $${expense.amount} (${expense.category})
+                <button onclick="editExpense(${index})">Edit</button>
+                <button onclick="deleteExpense(${index})">Delete</button>
             `;
             expenseList.appendChild(expenseItem);
             total += parseFloat(expense.amount);
@@ -24,18 +26,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function addExpense(expense) {
+        const amount = parseFloat(expense.amount);
+        if (amount <= 0) {
+            alert("Please enter a positive amount.");
+            return;
+        }
         expenses.push(expense);
         localStorage.setItem('expenses', JSON.stringify(expenses));
         renderExpenses(expenses);
     }
 
+    window.editExpense = (index) => {
+        const expense = expenses[index];
+        document.getElementById('description').value = expense.description;
+        document.getElementById('amount').value = expense.amount;
+        document.getElementById('category').value = expense.category;
+        expenses.splice(index, 1); // Remove the expense being edited
+        localStorage.setItem('expenses', JSON.stringify(expenses));
+        renderExpenses(expenses);
+    };
+
+    window.deleteExpense = (index) => {
+        expenses.splice(index, 1);
+        localStorage.setItem('expenses', JSON.stringify(expenses));
+        renderExpenses(expenses);
+    };
+
     function filterExpenses() {
         const category = filterCategory.value.toLowerCase();
-
         const filteredExpenses = expenses.filter(expense => {
             return (!category || expense.category.toLowerCase().includes(category));
         });
-
         renderExpenses(filteredExpenses);
     }
 
