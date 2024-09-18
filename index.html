@@ -9,10 +9,10 @@
 <body>
     <div class="container">
         <h1>Expense Tracker</h1>
-        <form id="expense-form">
-            <input type="text" id="description" placeholder="Description" required>
-            <input type="number" id="amount" placeholder="Amount" required>
-            <select id="category" required>
+        <form id="expense-form" aria-label="Expense Form">
+            <input type="text" id="description" placeholder="Description" required aria-required="true">
+            <input type="number" id="amount" placeholder="Amount" required min="0" step="0.01" aria-required="true">
+            <select id="category" required aria-required="true">
                 <option value="" disabled selected>Select Category</option>
                 <option value="Food">Food</option>
                 <option value="Entertainment">Entertainment</option>
@@ -21,15 +21,15 @@
             <button type="submit">Add Expense</button>
         </form>
         
-        <div class="filters">
+        <div class="filters" aria-label="Filters">
             <input type="text" id="filter-category" placeholder="Filter by category">
             <button id="filter-button">Filter</button>
             <button id="clear-button">Clear List</button>
         </div>
 
-        <div id="expense-list"></div>
+        <div id="expense-list" aria-live="polite"></div>
 
-        <div id="summary"></div>
+        <div id="summary" aria-live="polite"></div>
     </div>
     <script src="script.js"></script>
 </body>
