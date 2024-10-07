@@ -1,107 +1,165 @@
+/* General Styling */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(to right, #f5f7fa, #c3cfe2); /* Soft blue gradient */
     margin: 0;
     padding: 20px;
 }
 
 .container {
-    max-width: 600px;
+    max-width: 800px;
     margin: 40px auto;
-    padding: 20px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
 }
 
+/* Header Styling */
 h1 {
-    color: #333;
-    margin-top: 0;
     text-align: center;
+    color: #607d8b; /* Soft gray-blue */
+    background-color: #eceff1; /* Light gray */
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid #b0bec5; /* Muted border color */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
+/* Form Styling */
 form {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr; /* 4 equal columns for inputs */
+    gap: 15px;
+    margin-bottom: 20px;
 }
 
 input[type="text"], input[type="number"], select {
-    width: calc(45% - 20px); /* Adjusted for consistent spacing */
-    height: 40px;
-    margin: 10px 0; /* Vertical margin for consistency */
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box; /* Ensures padding is included in width */
+    padding: 15px;
+    border: 1px solid #cfd8dc; /* Soft gray border */
+    border-radius: 8px;
+    background-color: #fafafa; /* Light background */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+    transition: 0.3s;
 }
 
 button[type="submit"] {
-    width: 100%;
-    height: 40px;
-    margin: 10px 0;
-    padding: 10px;
-    background-color: #4CAF50;
+    grid-column: 1 / span 4;
+    padding: 15px;
+    background-color: #90a4ae; /* Soft muted blue-gray */
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s; /* Smooth transition effect */
+    box-shadow: 0 4px 15px rgba(144, 164, 174, 0.4); /* Softer shadow */
+    transition: 0.3s;
 }
 
 button[type="submit"]:hover {
-    background-color: #3e8e41;
+    background-color: #78909c; /* Slightly darker shade on hover */
+    box-shadow: 0 4px 15px rgba(120, 144, 156, 0.6); /* Slightly stronger shadow */
 }
 
+/* Filters Section Styling */
 .filters {
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
 }
 
 .filters input[type="text"] {
-    width: calc(60% - 20px); /* Adjusted for consistent spacing */
-    height: 30px;
-    margin: 10px 0;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box; /* Ensures padding is included in width */
+    grid-column: span 2;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #cfd8dc; /* Matching soft gray border */
 }
 
 .filters button {
-    width: calc(30% - 20px); /* Adjusted for consistent spacing */
-    height: 30px;
-    margin: 10px 0;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: #fff;
+    padding: 15px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s; /* Smooth transition effect */
+    background-color: #b0bec5; /* Softer muted blue */
+    color: #fff;
+    transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(176, 190, 197, 0.4);
 }
 
 .filters button:hover {
-    background-color: #3e8e41;
+    background-color: #90a4ae; /* Slightly darker on hover */
 }
 
+/* Expense List Section */
 #expense-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
     margin-top: 20px;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    max-height: 300px; /* Add a max height */
-    overflow-y: auto; /* Scroll if content exceeds max height */
 }
 
-#summary {
-    margin-top: 20px;
+.expense-item {
+    background: #c8e6c9; /* Soft pastel green for expense cards */
     padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    text-align: center; /* Center the text */
+    border-radius: 12px;
+    color: #2e7d32; /* Softer green for text */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.expense-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* Subtle lift on hover */
+}
+
+.expense-item strong {
+    display: block;
+    font-size: 18px;
+}
+
+.actions button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    background-color: #ffab91; /* Soft pastel orange */
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(255, 171, 145, 0.4); /* Softer shadow */
+    transition: 0.3s;
+}
+
+.actions button:hover {
+    background-color: #ff8a65; /* Slightly darker pastel orange */
+}
+
+/* Summary Styling */
+#summary {
+    padding: 20px;
+    background-color: #eceff1; /* Light gray background */
+    border-radius: 12px;
+    font-weight: bold;
+    text-align: center;
+    color: #455a64; /* Soft gray-blue */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Styling */
+@media only screen and (max-width: 768px) {
+    form {
+        grid-template-columns: 1fr;
+    }
+
+    .filters {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .filters button {
+        grid-column: span 2;
+    }
+
+    #expense-list {
+        grid-template-columns: 1fr;
+    }
 }

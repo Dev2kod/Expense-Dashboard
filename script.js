@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterCategory = document.getElementById('filter-category');
     const filterButton = document.getElementById('filter-button');
     const clearButton = document.getElementById('clear-button');
+    const sortAmountButton = document.getElementById('sort-amount');
+    const sortCategoryButton = document.getElementById('sort-category');
 
     let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
 
@@ -16,8 +18,10 @@ document.addEventListener('DOMContentLoaded', () => {
             expenseItem.className = 'expense-item';
             expenseItem.innerHTML = `
                 <strong>${expense.description}</strong> - $${expense.amount} (${expense.category})
-                <button onclick="editExpense(${index})">Edit</button>
-                <button onclick="deleteExpense(${index})">Delete</button>
+                <div class="actions">
+                    <button onclick="editExpense(${index})">Edit</button>
+                    <button onclick="deleteExpense(${index})">Delete</button>
+                </div>
             `;
             expenseList.appendChild(expenseItem);
             total += parseFloat(expense.amount);
@@ -34,6 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         expenses.push(expense);
         localStorage.setItem('expenses', JSON.stringify(expenses));
         renderExpenses(expenses);
+        highlightNewItem();
     }
 
     window.editExpense = (index) => {
@@ -58,12 +63,36 @@ document.addEventListener('DOMContentLoaded', () => {
             return (!category || expense.category.toLowerCase().includes(category));
         });
         renderExpenses(filteredExpenses);
+        scrollToTop();
     }
 
     function clearExpenses() {
-        expenses = [];
-        localStorage.removeItem('expenses');
+        if (confirm("Are you sure you want to clear all expenses?")) {
+            expenses = [];
+            localStorage.removeItem('expenses');
+            renderExpenses(expenses);
+        }
+    }
+
+    function sortExpenses(by) {
+        if (by === 'amount') {
+            expenses.sort((a, b) => parseFloat(a.amount) - parseFloat(b.amount));
+        } else if (by === 'category') {
+            expenses.sort((a, b) => a.category.localeCompare(b.category));
+        }
         renderExpenses(expenses);
+    }
+
+    function highlightNewItem() {
+        expenseList.lastElementChild.scrollIntoView({ behavior: 'smooth' });
+        expenseList.lastElementChild.style.background = "#e0ffe0";
+        setTimeout(() => {
+            expenseList.lastElementChild.style.background = "";
+        }, 1500);
+    }
+
+    function scrollToTop() {
+        expenseList.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     form.addEventListener('submit', (e) => {
@@ -78,6 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     filterButton.addEventListener('click', filterExpenses);
     clearButton.addEventListener('click', clearExpenses);
+    sortAmountButton.addEventListener('click', () => sortExpenses('amount'));
+    sortCategoryButton.addEventListener('click', () => sortExpenses('category'));
 
     renderExpenses(expenses);
 });
